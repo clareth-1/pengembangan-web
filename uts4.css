@@ -1,0 +1,294 @@
+/* =========================================================
+   Quasar Wiki – style.css
+   Urutan: 1 Variabel · 2 Dasar · 3 Navigasi · 4 Komponen umum
+           5 Panel/tab · 6 Deck · 7 Modal & toast · 8 Responsif
+   ========================================================= */
+
+/* ---------- 1. Variabel ---------- */
+:root {
+  --bg: #050816;
+  --bg2: #0b1230;
+  --panel: rgba(14, 22, 56, .78);
+  --cyan: #5de6ff;
+  --violet: #8a5cff;
+  --gold: #ffd86b;
+  --text: #e8eeff;
+  --muted: #9aa8d6;
+  --line: rgba(93, 230, 255, .25);
+  --card-ratio: 59 / 86;
+}
+
+/* ---------- 2. Dasar ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.65;
+  color: var(--text);
+  background: radial-gradient(ellipse at top, #1a1250 0%, var(--bg) 60%) fixed;
+}
+
+#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+h2 { color: var(--cyan); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+h3 { color: var(--gold); }
+code { background: rgba(255, 255, 255, .08); padding: 1px 6px; border-radius: 4px; color: var(--gold); }
+
+a { color: var(--cyan); text-decoration: none; border-bottom: 1px dotted var(--cyan); }
+a:hover { color: var(--gold); border-color: var(--gold); }
+
+button { font: inherit; color: inherit; }
+
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 36px 5vw 60px; }
+
+.title {
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  background: linear-gradient(90deg, var(--gold), var(--cyan), var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 30px rgba(93, 230, 255, .2);
+}
+.subtitle { color: var(--muted); margin-bottom: 24px; letter-spacing: 1px; }
+
+.hint { color: var(--muted); font-size: .85rem; margin-top: 14px; }
+.src  { color: var(--muted); font-size: .82rem; margin: 10px 0; }
+
+footer { position: relative; z-index: 1; text-align: center; color: var(--muted); font-size: .8rem; padding: 20px; }
+
+/* ---------- 3. Navigasi ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+  padding: 12px 5vw;
+  background: rgba(5, 8, 22, .85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 800; letter-spacing: 3px; color: var(--gold); }
+.brand span { color: var(--cyan); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: .95rem;
+  cursor: pointer;
+  transition: .25s;
+}
+.tab:hover { color: var(--cyan); border-color: var(--line); }
+.tab.active {
+  color: #06102a;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+  box-shadow: 0 0 18px rgba(93, 230, 255, .5);
+}
+
+/* ---------- 4. Komponen umum ---------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  color: #06102a;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .25s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(93, 230, 255, .4); color: #06102a; }
+.btn.alt { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); }
+.btn.alt:hover { background: var(--cyan); color: #06102a; }
+
+input[type=text],
+input[type=search] {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(5, 8, 22, .7);
+  color: var(--text);
+  outline: none;
+}
+input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(93, 230, 255, .3); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.chip  { padding: 5px 12px; border: 1px solid var(--cyan); border-radius: 999px; color: var(--cyan); font-size: .85rem; }
+.badge { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px; background: var(--violet); color: #fff; font-size: .75rem; }
+
+/* Placeholder gambar */
+.ph {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8px; text-align: center; font-size: .75rem; color: var(--cyan);
+  background: repeating-linear-gradient(45deg, #101a45, #101a45 10px, #0c1438 10px, #0c1438 20px);
+}
+.ph b { font-size: 1.6rem; color: var(--gold); }
+img { max-width: 100%; }
+
+/* ---------- 5. Panel & isi tab ---------- */
+.panel {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 0 40px rgba(93, 230, 255, .08);
+  animation: fade .4s ease;
+}
+.panel[hidden] { display: none; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Ringkasan */
+.layout { display: grid; grid-template-columns: 300px 1fr; gap: 28px; }
+.lead { font-size: 1.05rem; margin-bottom: 18px; }
+
+.infobox { align-self: start; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(5, 8, 22, .6); }
+.infobox-img {
+  aspect-ratio: var(--card-ratio);
+  margin-bottom: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(138, 92, 255, .5);
+  transition: .4s;
+}
+.infobox-img:hover { transform: rotate(-2deg) scale(1.03); }
+.infobox table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.infobox th { width: 34%; padding: 6px 8px 6px 0; text-align: left; vertical-align: top; color: var(--cyan); }
+.infobox td { padding: 6px 0; }
+.infobox tr + tr th,
+.infobox tr + tr td { border-top: 1px solid rgba(255, 255, 255, .06); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-top: 10px; }
+.feature {
+  display: block; width: 100%; padding: 14px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(93, 230, 255, .06);
+  cursor: pointer;
+  transition: .25s;
+}
+.feature:hover, .feature.active { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255, 216, 107, .18); }
+.feature p { font-size: .88rem; color: var(--muted); }
+
+.infopop {
+  max-height: 0; overflow: hidden;
+  margin-top: 14px; padding: 0 16px;
+  border-left: 3px solid var(--gold);
+  background: rgba(255, 216, 107, .08);
+  transition: .35s;
+}
+.infopop.show { max-height: 260px; padding: 14px 16px; }
+
+/* Lore – accordion tanpa JS untuk tinggi */
+.acc-item { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.acc-head {
+  display: flex; justify-content: space-between; width: 100%;
+  padding: 14px 18px;
+  border: none;
+  background: rgba(93, 230, 255, .07);
+  font-size: 1rem; font-weight: 600; text-align: left;
+  cursor: pointer;
+}
+.acc-head::after { content: "＋"; color: var(--cyan); }
+.acc-item.open .acc-head::after { content: "－"; }
+
+.acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+.acc-item.open .acc-body { grid-template-rows: 1fr; }
+.acc-inner { min-height: 0; overflow: hidden; }
+.acc-inner p { padding: 14px 18px; }
+
+/* Anime – timeline */
+.timeline { position: relative; padding-left: 28px; border-left: 2px solid var(--line); }
+.tl-item { position: relative; margin-bottom: 18px; }
+.dot { position: absolute; left: -37px; top: 14px; width: 16px; height: 16px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+.tl-card { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, .04); transition: .25s; }
+.tl-card:hover { transform: translateX(6px); border-color: var(--gold); }
+
+/* Pemegang */
+.holder { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+.holder-img { aspect-ratio: 3 / 4; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.ace-list { margin-top: 14px; padding-left: 20px; columns: 2; }
+.ace-list li { margin: 4px 0; }
+.ace-list li.hl { color: var(--gold); font-weight: 700; }
+
+/* Video */
+.video-box { aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #000; }
+.video-box iframe { width: 100%; height: 100%; border: 0; }
+.vid-now { margin-top: 10px; color: var(--gold); font-weight: 600; }
+.vid-now a { margin-left: 10px; font-size: .85rem; font-weight: 400; }
+.video-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.vid-btn { padding: 8px 14px; border: 1px solid var(--line); border-radius: 10px; background: transparent; text-align: left; cursor: pointer; transition: .25s; }
+.vid-btn small { display: block; font-size: .7rem; color: var(--muted); }
+.vid-btn:hover, .vid-btn.active { border-color: var(--gold); color: var(--gold); }
+.vid-custom { display: flex; flex-wrap: wrap; gap: 10px; }
+.vid-custom input { flex: 1; min-width: 200px; }
+
+/* ---------- 6. Deck ---------- */
+.deck-note { margin-bottom: 14px; padding-left: 12px; border-left: 3px solid var(--violet); color: var(--muted); font-size: .9rem; }
+.deck-tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.filter { padding: 8px 14px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; }
+.filter.active { background: var(--cyan); color: #06102a; font-weight: 700; }
+.deck-stats { margin-bottom: 14px; color: var(--muted); font-size: .9rem; }
+
+.deck-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+.card {
+  position: relative; display: block;
+  padding: 0; border: 0; background: none;
+  text-align: center;
+  cursor: pointer;
+  transition: .3s;
+}
+.card:hover, .card:focus-visible { transform: translateY(-8px) scale(1.04); z-index: 2; filter: drop-shadow(0 0 14px rgba(93, 230, 255, .7)); outline: none; }
+.card .img { aspect-ratio: var(--card-ratio); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.card .img img, .infobox-img img, .holder-img img, .modal-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card .name { margin-top: 6px; font-size: .78rem; line-height: 1.2; }
+.card .cat { display: block; margin-top: 2px; font-size: .65rem; letter-spacing: .5px; text-transform: uppercase; color: var(--cyan); }
+.card .qty { position: absolute; top: 6px; right: 6px; padding: 2px 7px; border-radius: 999px; background: var(--gold); color: #06102a; font-size: .75rem; font-weight: 800; }
+
+.card[data-c="extra"]   .img { border-color: var(--gold);   box-shadow: 0 0 10px rgba(255, 216, 107, .25); }
+.card[data-c="support"] .img { border-color: var(--violet); box-shadow: 0 0 10px rgba(138, 92, 255, .3); }
+.card.hero .img { box-shadow: 0 0 22px rgba(255, 216, 107, .7); }
+
+/* ---------- 7. Modal & toast ---------- */
+.modal { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .8); }
+.modal.show { display: flex; animation: fade .25s; }
+.modal-box {
+  position: relative;
+  display: grid; grid-template-columns: 260px 1fr; gap: 20px;
+  width: 100%; max-width: 700px; padding: 20px;
+  border: 1px solid var(--cyan); border-radius: 16px;
+  background: var(--bg2);
+  box-shadow: 0 0 50px rgba(93, 230, 255, .3);
+}
+.modal-img { aspect-ratio: var(--card-ratio); border-radius: 10px; overflow: hidden; }
+.modal-text .meta { margin: 6px 0 8px; color: var(--cyan); font-size: .85rem; }
+.links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; font-size: .85rem; }
+.close { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 1.3rem; cursor: pointer; }
+.modal-text #modalDesc { white-space: pre-line; line-height: 1.7; }
+.toast {
+  position: fixed; bottom: 24px; left: 50%; z-index: 60;
+  padding: 10px 20px; border-radius: 999px;
+  background: var(--gold); color: #06102a; font-weight: 700;
+  transform: translate(-50%, 80px);
+  transition: .35s;
+}
+.toast.show { transform: translate(-50%, 0); }
+
+/* ---------- 8. Responsif ---------- */
+@media (max-width: 760px) {
+  .layout, .holder, .modal-box { grid-template-columns: 1fr; }
+  .infobox, .holder-img { max-width: 280px; margin: auto; }
+  .modal-img { max-width: 200px; margin: auto; }
+  .ace-list { columns: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}

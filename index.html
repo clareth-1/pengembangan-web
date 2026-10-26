@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shooting Quasar Dragon – YUSEI Wiki</title>
+  <link rel="icon" href="images/yusei-fudo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="uts4.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <!-- ============ NAVIGASI ============ -->
+  <header class="topbar">
+    <div class="brand">✦ <span>YUSEI</span> WIKI</div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" role="tab" data-tab="ringkasan">Ringkasan</button>
+      <button class="tab" role="tab" data-tab="lore">Lore</button>
+      <button class="tab" role="tab" data-tab="anime">Anime</button>
+      <button class="tab" role="tab" data-tab="pemegang">Pemegang</button>
+      <button class="tab" role="tab" data-tab="video">Video</button>
+      <button class="tab" role="tab" data-tab="deck">Deck</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="title">Shooting Quasar Dragon</h1>
+    <p class="subtitle">シューティング・クェーサー・ドラゴン · Synchro / Effect Monster</p>
+
+    <!-- ============ RINGKASAN ============ -->
+    <section class="panel active" id="ringkasan" role="tabpanel">
+      <div class="layout">
+        <aside class="infobox">
+          <div class="infobox-img" id="mainCard"></div>
+          <table>
+            <tr><th>Tipe</th><td>Synchro / Effect Monster</td></tr>
+            <tr><th>Attribute</th><td>LIGHT</td></tr>
+            <tr><th>Type</th><td>Dragon</td></tr>
+            <tr><th>Level</th><td>12 ★</td></tr>
+            <tr><th>ATK / DEF</th><td>4000 / 4000</td></tr>
+            <tr><th>Material</th><td>1 Tuner Synchro Monster + 2 atau lebih non-Tuner Synchro Monster</td></tr>
+            <tr><th>Passcode</th><td>35952884</td></tr>
+            <tr><th>Rilis OCG</th><td>25 Maret 2011</td></tr>
+            <tr><th>Rilis TCG</th><td>1 Desember 2011</td></tr>
+            <tr><th>Cetakan</th><td>MG03-JP002 (OCG), JUMP-EN055, LC05-EN005 (TCG)</td></tr>
+            <tr><th>Pemegang</th><td>Yusei Fudo</td></tr>
+            <tr><th>Seri</th><td>Yu-Gi-Oh! 5D's (eps. 150–151)</td></tr>
+          </table>
+        </aside>
+
+        <article class="content">
+          <p class="lead">
+            <b>Shooting Quasar Dragon</b> adalah monster Synchro Level 12 yang menjadi ace card
+            Yusei Fudo di timeline baru Yu-Gi-Oh! 5D's. Di anime kartu ini lahir lewat
+            <i>Limit Over Accel Synchro Summon</i>, bentuk akhir dari garis evolusi Stardust Dragon →
+            Shooting Star Dragon → Shooting Quasar Dragon.
+            <br>
+            <br>
+            <b>“When the gathering stars become one, a new bond will illuminate the future! Become the path its light shines upon! Limit Over Accel Synchro! The light of evolution, Shooting Quasar Dragon!”</b>
+          </p>
+
+          <h2>Efek Kartu</h2>
+          <p class="src">
+            penjelasan lebih jelasnya ada disini
+            <a href="https://ygoprodeck.com/card/shooting-quasar-dragon-3040" target="_blank" rel="noopener">YGOPRODeck</a>.
+          </p>
+
+          <div class="cards-grid">
+            <button class="feature" data-info="Kartu ini harus di-Synchro Summon dan tidak bisa di-Special Summon dengan cara lain.">
+              <h3>⚡ Syarat Summon</h3>
+              <p>1 Tuner Synchro + 2 atau lebih non-Tuner Synchro.</p>
+            </button>
+            <button class="feature" data-info="Maksimal serangan per Battle Phase sama dengan jumlah monster non-Tuner yang dipakai sebagai Synchro Material. Catatan ruling: bila Skill Drain aktif saat serangan ke-2 dan seterusnya, efeknya ternegasi dan serangan berhenti. Dengan Twin Swords of Flashing Light - Tryce, kartu ini tetap maksimal 3 serangan bila efeknya sendiri memberi 3 serangan.">
+              <h3>⚔️ attack per times</h3>
+              <p>Jumlah serangan = jumlah material non-Tuner.</p>
+            </button>
+            <button class="feature" data-info="Sekali per giliran, di giliran siapa pun, saat sebuah kartu atau efek diaktifkan: kamu dapat negate aktivasinya, dan jika berhasil, menghancurkannya.">
+              <h3>🛡️ Negate</h3>
+              <p>Sekali per giliran, negate lalu hancurkan aktivasi lawan.</p>
+            </button>
+            <button class="feature" data-info="Saat kartu ini meninggalkan lapangan: kamu dapat Special Summon 1 &quot;Shooting Star Dragon&quot; dari Extra Deck.">
+              <h3>🌠 special summon 1 "shooting star dragon"</h3>
+              <p>Saat pergi, bisa memanggil Shooting Star Dragon.</p>
+            </button>
+          </div>
+
+          <p class="hint">💡 Klik salah satu kotak untuk melihat detail.</p>
+          <div class="infopop" id="infopop"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ LORE ============ -->
+    <section class="panel" id="lore" role="tabpanel" hidden>
+      <h2>Lore Kartu</h2>
+
+      <div class="accordion">
+        <div class="acc-item open">
+          <button class="acc-head">Lahir dari Limit Over Accel Synchro</button>
+          <div class="acc-body"><div class="acc-inner"><p>
+            Di anime, kartu ini hanya bisa dipanggil lewat <b>Limit Over Accel Synchro Summon</b>, bentuk
+            Synchro terkuat yang dikenal di 5D's. Syaratnya: 1 Tuner Synchro dan sedikitnya 2 non-Tuner
+            Synchro, dan pemanggilnya harus berada dalam kondisi <b>Over Top Clear Mind</b>. Yusei pertama
+            kali menunjukkannya di episode 150 saat melawan Z-one. Ia memakai total lima monster Synchro
+            (satu Tuner dan empat non-Tuner).
+          </p></div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Garis evolusi Stardust Dragon</button>
+          <div class="acc-body"><div class="acc-inner"><p>
+            Kartu ini adalah bentuk Limit Over Accel Synchro dari Stardust Dragon. Urutannya: Stardust
+            Dragon → Shooting Star Dragon → Shooting Quasar Dragon. Efek terakhirnya pun mengikuti garis
+            itu, karena saat Quasar pergi, Shooting Star Dragon bisa dipanggil kembali.
+          </p></div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Timeline asli vs timeline baru</button>
+          <div class="acc-body"><div class="acc-inner"><p>
+            Di timeline asli, ace pamungkas Yusei adalah <b>Cosmic Blazar Dragon</b> (Delta Accel Synchro),
+            kartu yang tidak pernah muncul di layar. Kedatangan Z-one mengubah masa depan itu, sehingga
+            Yusei mengembangkan Over Top Clear Mind dan melahirkan Shooting Quasar Dragon sebagai ace
+            pamungkasnya di timeline baru. Kartu ini juga punya padanan Duel Dragon bernama
+            <b>Stardust Sifr Divine Dragon</b>.
+          </p></div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Makna di ilustrasi</button>
+          <div class="acc-body"><div class="acc-inner"><p>
+            Enam cincin Synchro Summon berwarna berbeda muncul di ilustrasi kartu ini. Cincin-cincin itu
+            merujuk pada enam Signer Dragon yang terkait dengan kartunya. Monster ini juga muncul di
+            ilustrasi spell <i>Limit Overdrive</i>.
+          </p></div></div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-head">Cara bertarung di anime</button>
+          <div class="acc-body"><div class="acc-inner"><p>
+            Saat dipanggil, lima orb muncul mengelilingi naga ini, masing-masing mewakili satu material
+            Synchro. Dengan serangan <i>The Creation Burst</i>, Quasar menghancurkan monster-monster
+            Timelord milik Z-one satu per satu. Orb terakhir, milik Life Stream Dragon, ditembakkan ke
+            Sandaion, lalu Shooting Star Dragon dipanggil sebagai penggantinya.
+          </p></div></div>
+        </div>
+      </div>
+
+      <p class="src">
+        Sumber:
+        <a href="https://yugipedia.com/wiki/Card_Trivia:Shooting_Quasar_Dragon" target="_blank" rel="noopener">Card Trivia</a>,
+        <a href="https://yugipedia.com/wiki/Limit_Over_Accel_Synchro_Summon" target="_blank" rel="noopener">Limit Over Accel Synchro Summon</a>,
+        <a href="https://yugipedia.com/wiki/Yu-Gi-Oh!_5D's_-_Episode_151" target="_blank" rel="noopener">Episode 151</a> (Yugipedia).
+      </p>
+    </section>
+
+    <!-- ============ ANIME ============ -->
+    <section class="panel" id="anime" role="tabpanel" hidden>
+      <h2>Penampilan &amp; Media</h2>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-card">
+            <h3>Ep. 144–145 · Latar: Delta Accel Synchro</h3>
+            <p>Dalam duel melawan Antinomy (Bruno), Yusei mempelajari Delta Accel Synchro. Dari sinilah
+              ia kemudian melampaui batas itu dan menciptakan Limit Over Accel Synchro.</p>
+            <span class="badge">Yu-Gi-Oh! 5D's</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-card">
+            <h3>Ep. 150 · "Entrusted Feelings of My Father"</h3>
+            <p>Tayang di Jepang 2 Maret 2011. Yusei menggunakan Over Top Clear Mind dan men-summon
+              Shooting Quasar Dragon untuk pertama kalinya di duel melawan Z-one.</p>
+            <span class="badge">Summon pertama</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-card">
+            <h3>Ep. 151 · "Converging Wishes"</h3>
+            <p>Tayang di Jepang 9 Maret 2011. Kartu ini menjadi featured card episode. Quasar menghancurkan
+              para Timelord, lalu Shooting Star Dragon dipanggil saat Quasar hancur.</p>
+            <span class="badge">Featured card</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-card">
+            <h3>Duel Links · Mini BOX "Pulse of the Quasars"</h3>
+            <p>Dirilis 1 April 2023 sebagai kartu sampul (Ultra Rare, kartu baru). Game ini punya animasi
+              summon sendiri.</p>
+            <span class="badge">Game</span>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="dot"></div>
+          <div class="tl-card">
+            <h3>YCS Providence 2012 · Yusei vs. Akiza</h3>
+            <p>Duel khusus berskrip di acara TCG. Quasar ada di Extra Deck Yusei.</p>
+            <span class="badge">Event TCG</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="src">
+        Sumber:
+        <a href="https://yugipedia.com/wiki/Yu-Gi-Oh!_5D%27s_-_Episode_150" target="_blank" rel="noopener">Ep. 150</a>,
+        <a href="https://yugipedia.com/wiki/Yu-Gi-Oh!_5D's_-_Episode_151" target="_blank" rel="noopener">Ep. 151</a>,
+        <a href="https://yugipedia.com/wiki/Pulse_of_the_Quasars" target="_blank" rel="noopener">Pulse of the Quasars</a>,
+        <a href="https://yugipedia.com/wiki/Yusei_Fudo%27s_Decks" target="_blank" rel="noopener">Yusei Fudo's Decks</a>.
+      </p>
+    </section>
+
+    <!-- ============ PEMEGANG ============ -->
+    <section class="panel" id="pemegang" role="tabpanel" hidden>
+      <h2>Pemegang Kartu</h2>
+
+      <div class="holder">
+        <div class="holder-img" id="holderImg"></div>
+        <div>
+          <h3>Yusei Fudo (不動 遊星)</h3>
+          <p>
+            Protagonis utama Yu-Gi-Oh! 5D's. Ia dikenal lewat Synchro Summon dan Turbo Duel, serta memakai
+            deck bertema "Synchron" dan monster Warrior. Menjelang duel melawan Z-one, Yusei menerima
+            Signer Dragon lain dari teman-temannya, lalu mencapai Over Top Clear Mind untuk memanggil
+            Shooting Quasar Dragon.
+          </p>
+          <div class="chips">
+            <span class="chip">Signer</span>
+            <span class="chip">Synchro</span>
+            <span class="chip">Turbo Duelist</span>
+            <span class="chip">Team 5D's</span>
+          </div>
+          <button class="btn" id="holderBtn"></button>
+          <ul class="ace-list" id="aceList" hidden></ul>
+        </div>
+      </div>
+
+      <p class="src">
+        Daftar Extra Deck diambil dari
+        <a href="https://yugipedia.com/wiki/Yusei_Fudo%27s_Decks" target="_blank" rel="noopener">Yusei Fudo's Decks</a> (Yugipedia).
+      </p>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section class="panel" id="video" role="tabpanel" hidden>
+      <h2>Video YouTube</h2>
+
+      <div class="video-box">
+        <iframe id="player" title="Shooting Quasar Dragon"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="vid-now" id="vidNow"></p>
+      <div class="video-list" id="videoList"></div>
+
+      <div class="vid-custom">
+        <input type="text" id="vidInput" placeholder="Tempel link / ID YouTube lain…">
+        <button class="btn" id="vidBtn">Muat video</button>
+      </div>
+    </section>
+
+    <!-- ============ DECK ============ -->
+    <section class="panel" id="deck" role="tabpanel" hidden>
+      <h2>Deck Quasar Dragon</h2>
+      <p class="deck-note">
+        Daftar kartu di deck anime Yusei menjelang duel melawan Z-one (Turbo Deck Season 5 / Ark Cradle).
+        ini hanyalah semua kartu yang pernah muncul di anime nya dan tidak mengikuti format tcg maupun ocg. Beberapa kartu pendukung TCG/OCG ditandai terpisah.
+      </p>
+
+      <div class="deck-tools">
+        <input type="search" id="search" placeholder="Cari kartu…">
+        <button class="btn" id="copyDeck">Salin daftar</button>
+        <a class="btn alt" href="https://ygoprodeck.com/deck-search/?&cardcode=Shooting%20Quasar%20Dragon%7C&offset=0"
+           target="_blank" rel="noopener">Deck pemain di YGOPRODeck ↗</a>
+      </div>
+
+      <div class="filters" id="filters"></div>
+      <div class="deck-stats" id="deckStats"></div>
+      <div class="deck-grid" id="deckGrid"></div>
+    </section>
+  </main>
+
+  <!-- ============ MODAL KARTU ============ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modal-box">
+      <button class="close" id="closeModal" aria-label="Tutup">✕</button>
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-text">
+        <h3 id="modalName"></h3>
+        <p class="meta" id="modalMeta"></p>
+        <p id="modalDesc"></p>
+        <p class="links" id="modalLinks"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <footer>Fan-made wiki. Yu-Gi-Oh! © Kazuki Takahashi / Konami. Tidak berafiliasi resmi.</footer>
+
+  <script src="datauts4.js"></script>
+  <script src="uts4.js"></script>
+</body>
+</html>
