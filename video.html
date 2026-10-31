@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video – YUSEI Wiki</title>
+  <link rel="icon" href="images/yusei-fudo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="uts4.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <header class="topbar" id="topbar"></header>
+
+  <main class="wrap">
+    <h1 class="page-title">Video</h1>
+    <p class="subtitle">Video summon Shooting Quasar Dragon.</p>
+
+    <section class="panel" id="video">
+      <h2>Video YouTube</h2>
+
+      <div class="video-box">
+        <iframe id="player" title="Shooting Quasar Dragon"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="vid-now" id="vidNow"></p>
+      <div class="video-list" id="videoList"></div>
+
+      <div class="vid-custom">
+        <input type="text" id="vidInput" placeholder="Tempel link / ID YouTube lain…">
+        <button class="btn" id="vidBtn">Muat video</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Fan-made wiki. Yu-Gi-Oh! © Kazuki Takahashi / Konami. Tidak berafiliasi resmi.</footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="datauts4.js"></script>
+  <script src="uts4.js"></script>
+</body>
+</html>

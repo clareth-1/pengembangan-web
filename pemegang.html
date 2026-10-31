@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pemegang – YUSEI Wiki</title>
+  <link rel="icon" href="images/yusei-fudo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="uts4.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <header class="topbar" id="topbar"></header>
+
+  <main class="wrap">
+    <h1 class="page-title">Pemegang</h1>
+    <p class="subtitle">Duelist yang memegang Shooting Quasar Dragon.</p>
+
+    <section class="panel" id="pemegang">
+      <h2>Pemegang Kartu</h2>
+
+      <div class="holder">
+        <div class="holder-img" id="holderImg"></div>
+        <div>
+          <h3>Yusei Fudo (不動 遊星)</h3>
+          <p>
+            Protagonis utama Yu-Gi-Oh! 5D's. Ia dikenal lewat Synchro Summon dan Turbo Duel, serta memakai
+            deck bertema "Synchron" dan monster Warrior. Menjelang duel melawan Z-one, Yusei menerima
+            Signer Dragon lain dari teman-temannya, lalu mencapai Over Top Clear Mind untuk memanggil
+            Shooting Quasar Dragon.
+          </p>
+          <div class="chips">
+            <span class="chip">Signer</span>
+            <span class="chip">Synchro</span>
+            <span class="chip">Turbo Duelist</span>
+            <span class="chip">Team 5D's</span>
+          </div>
+          <button class="btn" id="holderBtn"></button>
+          <ul class="ace-list" id="aceList" hidden></ul>
+        </div>
+      </div>
+
+      <p class="src">
+        Daftar Extra Deck diambil dari
+        <a href="https://yugipedia.com/wiki/Yusei_Fudo%27s_Decks" target="_blank" rel="noopener">Yusei Fudo's Decks</a> (Yugipedia).
+      </p>
+    </section>
+  </main>
+
+  <footer>Fan-made wiki. Yu-Gi-Oh! © Kazuki Takahashi / Konami. Tidak berafiliasi resmi.</footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="datauts4.js"></script>
+  <script src="uts4.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deck – YUSEI Wiki</title>
+  <link rel="icon" href="images/yusei-fudo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="uts4.css">
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <header class="topbar" id="topbar"></header>
+
+  <main class="wrap">
+    <h1 class="page-title">Deck</h1>
+    <p class="subtitle">Kartu-kartu di deck anime Yusei.</p>
+
+    <section class="panel" id="deck">
+      <h2>Deck Quasar Dragon</h2>
+      <p class="deck-note">
+        Daftar kartu di deck anime Yusei menjelang duel melawan Z-one (Turbo Deck Season 5 / Ark Cradle).
+        ini hanyalah semua kartu yang pernah muncul di anime nya dan tidak mengikuti format tcg maupun ocg. Beberapa kartu pendukung TCG/OCG ditandai terpisah.
+      </p>
+
+      <div class="deck-tools">
+        <input type="search" id="search" placeholder="Cari kartu…">
+        <button class="btn" id="copyDeck">Salin daftar</button>
+        <a class="btn alt" href="https://ygoprodeck.com/deck-search/?&cardcode=Shooting%20Quasar%20Dragon%7C&offset=0"
+           target="_blank" rel="noopener">Deck pemain di YGOPRODeck ↗</a>
+      </div>
+
+      <div class="filters" id="filters"></div>
+      <div class="deck-stats" id="deckStats"></div>
+      <div class="deck-grid" id="deckGrid"></div>
+    </section>
+  </main>
+
+  <!-- ============ MODAL KARTU ============ -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modal-box">
+      <button class="close" id="closeModal" aria-label="Tutup">✕</button>
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-text">
+        <h3 id="modalName"></h3>
+        <p class="meta" id="modalMeta"></p>
+        <p id="modalDesc"></p>
+        <p class="links" id="modalLinks"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>Fan-made wiki. Yu-Gi-Oh! © Kazuki Takahashi / Konami. Tidak berafiliasi resmi.</footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="datauts4.js"></script>
+  <script src="uts4.js"></script>
+</body>
+</html>

@@ -1,8 +1,24 @@
 /* =========================================================
-   script.js – logika tampilan. Data ada di data.js.
-   Isi: Util · Tab · Ringkasan · Lore · Pemegang · Video
-        · Deck · Modal · Bintang · Mulai
+   uts4.js – dipakai SEMUA halaman.
+   Isi: Daftar menu (NAV) · Util · Navigasi & DROPDOWN
+        · Fitur per halaman · Bintang · Mulai
+   Setiap fitur memeriksa dulu apakah elemennya ada, jadi
+   aman dimuat di halaman yang tidak memilikinya.
    ========================================================= */
+
+/* ---------- DAFTAR MENU (edit di sini untuk menambah halaman) ---------- */
+const NAV = [
+  { label: "Home", page: "index" },
+  { label: "About", items: [
+      { label: "Lore",     page: "lore" },
+      { label: "Anime",    page: "anime" },
+      { label: "Pemegang", page: "pemegang" }
+  ]},
+  { label: "Gallery", items: [
+      { label: "Video", page: "video" },
+      { label: "Deck",  page: "deck" }
+  ]}
+];
 
 /* ---------- Util ---------- */
 const $  = (sel, root = document) => root.querySelector(sel);
@@ -18,6 +34,10 @@ function el(tag, { text = "", className = "", ...attrs } = {}, ...children) {
   Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
   node.append(...children);
   return node;
+}
+
+function externalLink(label, href) {
+  return el("a", { text: label, href, target: "_blank", rel: "noopener" });
 }
 
 /** Gambar kartu; bila file tidak ada, tampilkan placeholder dengan nama file yang dicari. */
@@ -38,64 +58,61 @@ function createImage(name, file) {
 
 function showToast(message) {
   const toast = $("#toast");
+  if (!toast) return;
   toast.textContent = message;
   toast.classList.add("show");
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-function externalLink(label, href) {
-  return el("a", { text: label, href, target: "_blank", rel: "noopener" });
-}
+/* ---------- NAVIGASI & DROPDOWN MENU ---------- */
+function initNav() {
+  const bar = $("#topbar");
+  const current = location.pathname.split("/").pop().replace(/\.html$/, "") || "index";
+  const hrefOf = page => (page === "index" ? "index.html" : page + ".html");
 
-/* ---------- Tab ---------- */
-const tabHooks = {};   // fungsi yang dijalankan saat tab tertentu dibuka
+  // Link lama seperti index.html#deck diarahkan ke halaman barunya
+  const oldHash = location.hash.slice(1);
+  if (current === "index" && ["lore", "anime", "pemegang", "video", "deck"].includes(oldHash)) {
+    location.replace(hrefOf(oldHash));
+    return;
+  }
 
-function openTab(id, { scroll = true } = {}) {
-  // Semua tombol penunjuk tab (Home + item dropdown)
-  $$("[data-tab]").forEach(btn => {
-    const active = btn.dataset.tab === id;
-    btn.classList.toggle("active", active);
-    btn.setAttribute("aria-selected", active);
+  const link = (item, cls) => el("a", {
+    className: cls + (item.page === current ? " active" : ""),
+    href: hrefOf(item.page),
+    text: item.label
   });
-  // Tombol induk (About/Gallery) menyala bila salah satu anaknya aktif
-  $$(".has-dropdown").forEach(group =>
-    group.classList.toggle("has-active", Boolean($(".dd-item.active", group))));
 
-  $$(".panel").forEach(panel => {
-    const active = panel.id === id;
-    panel.classList.toggle("active", active);
-    panel.hidden = !active;
+  // Bangun menu dari NAV
+  const menu = el("ul", { className: "menu" });
+  NAV.forEach(item => {
+    if (!item.items) {                       // menu biasa
+      menu.append(el("li", {}, link(item, "tab")));
+      return;
+    }
+    // menu dengan DROPDOWN
+    const parent = el("button", { className: "tab dd-parent", type: "button", "aria-expanded": "false", text: item.label });
+    const sub = el("ul", { className: "dropdown" },
+      ...item.items.map(sub => el("li", {}, link(sub, "dd-item"))));
+    const hasActive = item.items.some(sub => sub.page === current);
+    menu.append(el("li", { className: "has-dropdown" + (hasActive ? " has-active" : "") }, parent, sub));
   });
-  history.replaceState(null, "", "#" + id);
-  if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
-  tabHooks[id]?.();
-}
 
-function initTabs() {
-  $$("[data-tab]").forEach(btn => btn.addEventListener("click", () => openTab(btn.dataset.tab)));
-  const fromUrl = location.hash.slice(1);
-  if (fromUrl && document.getElementById(fromUrl)) openTab(fromUrl, { scroll: false });
-}
+  const brand = el("a", { className: "brand", href: "index.html" },
+    document.createTextNode("✦ "), el("span", { text: "YUSEI" }), document.createTextNode(" WIKI"));
+  const burger = el("button", { className: "nav-toggle", type: "button", "aria-label": "Buka menu", "aria-expanded": "false", text: "☰" });
+  const nav = el("nav", { className: "nav", "aria-label": "Navigasi utama" }, menu);
+  bar.replaceChildren(brand, burger, nav);
 
-/* ---------- DROPDOWN MENU ---------- */
-function initDropdown() {
-  const nav = $("#nav");
-  const burger = $("#navToggle");
-  const groups = $$(".has-dropdown");
-
+  // --- Perilaku dropdown ---
+  const groups = $$(".has-dropdown", bar);
   const closeAll = except => groups.forEach(group => {
     if (group === except) return;
     group.classList.remove("open");
     $(".dd-parent", group).setAttribute("aria-expanded", "false");
   });
 
-  // Tombol hamburger (layar kecil)
-  burger.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
-    burger.setAttribute("aria-expanded", open);
-  });
-
-  // Klik tombol induk (About/Gallery): buka/tutup submenunya
+  // Klik tombol induk (About / Gallery): buka-tutup submenu
   groups.forEach(group => {
     const parent = $(".dd-parent", group);
     parent.addEventListener("click", e => {
@@ -106,25 +123,24 @@ function initDropdown() {
     });
   });
 
-  // Klik di luar menu atau tekan Esc: tutup semua submenu
-  document.addEventListener("click", e => {
-    if (!e.target.closest(".has-dropdown")) closeAll();
+  // Hamburger (layar kecil)
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
   });
+
+  // Klik di luar menu atau tekan Esc: tutup semua submenu
+  document.addEventListener("click", e => { if (!e.target.closest(".has-dropdown")) closeAll(); });
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") { closeAll(); nav.classList.remove("open"); }
   });
-
-  // Setelah memilih tab: tutup submenu dan menu hamburger
-  $$("[data-tab]").forEach(btn => btn.addEventListener("click", () => {
-    closeAll();
-    nav.classList.remove("open");
-    btn.blur();   // supaya :focus-within tidak menahan submenu tetap terbuka
-  }));
 }
 
-/* ---------- Ringkasan ---------- */
+/* ---------- Home: kartu utama & kotak fitur ---------- */
 function initSummary() {
-  $("#mainCard").append(createImage(MAIN_CARD.name, MAIN_CARD.img));
+  const card = $("#mainCard");
+  if (!card) return;
+  card.append(createImage(MAIN_CARD.name, MAIN_CARD.img));
 
   const popup = $("#infopop");
   $$(".feature").forEach(feature => feature.addEventListener("click", () => {
@@ -137,18 +153,20 @@ function initSummary() {
   }));
 }
 
-/* ---------- Lore (accordion – tinggi diatur CSS) ---------- */
-function initLore() {
+/* ---------- Lore: accordion (tinggi diatur CSS) ---------- */
+function initAccordion() {
   $$(".acc-head").forEach(head =>
     head.addEventListener("click", () => head.parentElement.classList.toggle("open")));
 }
 
 /* ---------- Pemegang ---------- */
 function initHolder() {
+  const button = $("#holderBtn");
+  if (!button) return;
+
   $("#holderImg").append(createImage(HOLDER.name, HOLDER.img));
 
   const list = $("#aceList");
-  const button = $("#holderBtn");
   const LABEL_SHOW = "Tampilkan Extra Deck Yusei (Season 5)";
 
   list.replaceChildren(...YUSEI_EXTRA.map(name =>
@@ -164,9 +182,9 @@ function initHolder() {
 /* ---------- Video ---------- */
 function initVideo() {
   const player = $("#player");
+  if (!player) return;
   const nowPlaying = $("#vidNow");
   const list = $("#videoList");
-  let loaded = false;
 
   function play(id, title = "Video kustom", activeButton = null) {
     player.src = `https://www.youtube.com/embed/${id}`;
@@ -193,17 +211,13 @@ function initVideo() {
     showToast("Video dimuat");
   });
 
-  // Iframe baru dimuat saat tab Video pertama kali dibuka
-  tabHooks.video = () => {
-    if (loaded) return;
-    loaded = true;
-    play(VIDEOS[0].id, VIDEOS[0].title, $(".vid-btn", list));
-  };
+  if (VIDEOS.length) play(VIDEOS[0].id, VIDEOS[0].title, $(".vid-btn", list));
 }
 
 /* ---------- Deck ---------- */
 function initDeck() {
   const grid = $("#deckGrid");
+  if (!grid) return;
   const stats = $("#deckStats");
   const filterBar = $("#filters");
   const state = { filter: "all", query: "" };
@@ -238,9 +252,7 @@ function initDeck() {
     return btn;
   }
 
-  // Tombol filter dibuat dari CATEGORIES
-  const filters = [["all", "Semua"], ...Object.entries(CATEGORIES)];
-  filters.forEach(([key, label]) => {
+  [["all", "Semua"], ...Object.entries(CATEGORIES)].forEach(([key, label]) => {
     const btn = el("button", { className: "filter" + (key === "all" ? " active" : ""), text: label, type: "button" });
     btn.addEventListener("click", () => {
       $$(".filter", filterBar).forEach(b => b.classList.toggle("active", b === btn));
@@ -270,11 +282,10 @@ function initDeck() {
   });
 
   render();
+  initModal();
 }
 
-/* ---------- Modal ---------- */
-const modal = $("#modal");
-
+/* ---------- Modal kartu (hanya di halaman Deck) ---------- */
 function openModal(card) {
   const query = encodeURIComponent(card.name);
 
@@ -287,10 +298,11 @@ function openModal(card) {
     externalLink("Yugipedia ↗",   `https://yugipedia.com/index.php?search=${query}`),
     externalLink("YGOPRODeck ↗", `https://ygoprodeck.com/card-database/?&name=${query}`));
 
-  modal.classList.add("show");
+  $("#modal").classList.add("show");
 }
 
 function initModal() {
+  const modal = $("#modal");
   const close = () => modal.classList.remove("show");
   $("#closeModal").addEventListener("click", close);
   modal.addEventListener("click", e => { if (e.target === modal) close(); });
@@ -342,12 +354,10 @@ function initStarfield() {
 }
 
 /* ---------- Mulai ---------- */
+initNav();
 initSummary();
-initLore();
+initAccordion();
 initHolder();
 initVideo();
 initDeck();
-initModal();
 initStarfield();
-initDropdown();
-initTabs();
