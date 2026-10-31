@@ -10,16 +10,39 @@
 <body>
   <canvas id="stars" aria-hidden="true"></canvas>
 
-  <!-- ============ NAVIGASI ============ -->
+   <!-- ============ NAVIGASI ============ -->
   <header class="topbar">
     <div class="brand">✦ <span>YUSEI</span> WIKI</div>
-    <nav class="tabs" role="tablist">
-      <button class="tab active" role="tab" data-tab="ringkasan">Ringkasan</button>
-      <button class="tab" role="tab" data-tab="lore">Lore</button>
-      <button class="tab" role="tab" data-tab="anime">Anime</button>
-      <button class="tab" role="tab" data-tab="pemegang">Pemegang</button>
-      <button class="tab" role="tab" data-tab="video">Video</button>
-      <button class="tab" role="tab" data-tab="deck">Deck</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+
+    <nav class="nav" id="nav" aria-label="Navigasi utama">
+      <ul class="menu">
+
+        <!-- Menu biasa (tanpa dropdown) -->
+        <li><button class="tab active" data-tab="ringkasan">Home</button></li>
+
+        <!-- ▼▼▼ DROPDOWN: About ▼▼▼ -->
+        <li class="has-dropdown">
+          <button class="tab dd-parent" aria-expanded="false">About</button>
+          <ul class="dropdown">
+            <li><button class="dd-item" data-tab="lore">Lore</button></li>
+            <li><button class="dd-item" data-tab="anime">Anime</button></li>
+            <li><button class="dd-item" data-tab="pemegang">Pemegang</button></li>
+          </ul>
+        </li>
+        <!-- ▲▲▲ AKHIR DROPDOWN ▲▲▲ -->
+
+        <!-- ▼▼▼ DROPDOWN: Gallery ▼▼▼ -->
+        <li class="has-dropdown">
+          <button class="tab dd-parent" aria-expanded="false">Gallery</button>
+          <ul class="dropdown">
+            <li><button class="dd-item" data-tab="video">Video</button></li>
+            <li><button class="dd-item" data-tab="deck">Deck</button></li>
+          </ul>
+        </li>
+        <!-- ▲▲▲ AKHIR DROPDOWN ▲▲▲ -->
+
+      </ul>
     </nav>
   </header>
 

@@ -51,11 +51,16 @@ function externalLink(label, href) {
 const tabHooks = {};   // fungsi yang dijalankan saat tab tertentu dibuka
 
 function openTab(id, { scroll = true } = {}) {
-  $$(".tab").forEach(btn => {
+  // Semua tombol penunjuk tab (Home + item dropdown)
+  $$("[data-tab]").forEach(btn => {
     const active = btn.dataset.tab === id;
     btn.classList.toggle("active", active);
     btn.setAttribute("aria-selected", active);
   });
+  // Tombol induk (About/Gallery) menyala bila salah satu anaknya aktif
+  $$(".has-dropdown").forEach(group =>
+    group.classList.toggle("has-active", Boolean($(".dd-item.active", group))));
+
   $$(".panel").forEach(panel => {
     const active = panel.id === id;
     panel.classList.toggle("active", active);
@@ -67,9 +72,54 @@ function openTab(id, { scroll = true } = {}) {
 }
 
 function initTabs() {
-  $$(".tab").forEach(btn => btn.addEventListener("click", () => openTab(btn.dataset.tab)));
+  $$("[data-tab]").forEach(btn => btn.addEventListener("click", () => openTab(btn.dataset.tab)));
   const fromUrl = location.hash.slice(1);
   if (fromUrl && document.getElementById(fromUrl)) openTab(fromUrl, { scroll: false });
+}
+
+/* ---------- DROPDOWN MENU ---------- */
+function initDropdown() {
+  const nav = $("#nav");
+  const burger = $("#navToggle");
+  const groups = $$(".has-dropdown");
+
+  const closeAll = except => groups.forEach(group => {
+    if (group === except) return;
+    group.classList.remove("open");
+    $(".dd-parent", group).setAttribute("aria-expanded", "false");
+  });
+
+  // Tombol hamburger (layar kecil)
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  });
+
+  // Klik tombol induk (About/Gallery): buka/tutup submenunya
+  groups.forEach(group => {
+    const parent = $(".dd-parent", group);
+    parent.addEventListener("click", e => {
+      e.stopPropagation();
+      const open = group.classList.toggle("open");
+      parent.setAttribute("aria-expanded", open);
+      closeAll(group);
+    });
+  });
+
+  // Klik di luar menu atau tekan Esc: tutup semua submenu
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".has-dropdown")) closeAll();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { closeAll(); nav.classList.remove("open"); }
+  });
+
+  // Setelah memilih tab: tutup submenu dan menu hamburger
+  $$("[data-tab]").forEach(btn => btn.addEventListener("click", () => {
+    closeAll();
+    nav.classList.remove("open");
+    btn.blur();   // supaya :focus-within tidak menahan submenu tetap terbuka
+  }));
 }
 
 /* ---------- Ringkasan ---------- */
@@ -299,4 +349,5 @@ initVideo();
 initDeck();
 initModal();
 initStarfield();
+initDropdown();
 initTabs();

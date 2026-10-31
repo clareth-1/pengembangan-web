@@ -89,6 +89,57 @@ footer { position: relative; z-index: 1; text-align: center; color: var(--muted)
   box-shadow: 0 0 18px rgba(93, 230, 255, .5);
 }
 
+/* ---------- 3b. DROPDOWN MENU ---------- */
+.nav-toggle {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: transparent; font-size: 1.3rem; cursor: pointer;
+}
+
+.menu { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; list-style: none; }
+.menu > li { position: relative; }
+
+/* Tanda panah di tombol induk */
+.dd-parent::after { content: " ▾"; font-size: .8em; }
+.has-dropdown.open .dd-parent::after { content: " ▴"; }
+
+/* Tombol induk menyala bila salah satu submenunya sedang dibuka */
+.has-active > .dd-parent {
+  color: #06102a; font-weight: 700;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+  box-shadow: 0 0 18px rgba(93, 230, 255, .5);
+}
+
+/* Kotak submenu: tersembunyi dulu */
+.dropdown {
+  position: absolute; top: 100%; left: 0;
+  min-width: 180px; padding: 8px; margin-top: 6px;
+  list-style: none;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .5);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: .2s;
+}
+/* Jembatan tak terlihat agar hover tidak putus di celah */
+.dropdown::before { content: ""; position: absolute; top: -8px; left: 0; right: 0; height: 8px; }
+
+/* Muncul saat: kursor di atas / fokus keyboard / class .open dari JS */
+.has-dropdown:hover > .dropdown,
+.has-dropdown:focus-within > .dropdown,
+.has-dropdown.open > .dropdown { opacity: 1; visibility: visible; transform: none; }
+
+.dd-item {
+  display: block; width: 100%;
+  padding: 9px 12px;
+  border: 0; border-radius: 8px;
+  background: none; color: var(--muted);
+  text-align: left; cursor: pointer; transition: .2s;
+}
+.dd-item:hover { color: var(--cyan); background: rgba(93, 230, 255, .08); }
+.dd-item.active { color: var(--gold); font-weight: 700; }
+
 /* ---------- 4. Komponen umum ---------- */
 .btn {
   display: inline-block;
@@ -281,6 +332,29 @@ img { max-width: 100%; }
 .toast.show { transform: translate(-50%, 0); }
 
 /* ---------- 8. Responsif ---------- */
+@media (max-width: 860px) {
+  /* Menu jadi hamburger */
+  .nav-toggle { display: block; }
+  .nav { display: none; width: 100%; }
+  .nav.open { display: block; }
+  .menu { flex-direction: column; align-items: stretch; }
+
+  /* Dropdown jadi daftar di bawah tombol induk */
+  .dd-parent { width: 100%; text-align: left; }
+  .dropdown {
+    position: static; display: none;
+    margin: 4px 0 8px; box-shadow: none;
+    opacity: 1; visibility: visible; transform: none;
+  }
+  .dropdown::before { display: none; }
+  .has-dropdown.open > .dropdown { display: block; }
+  /* hover/fokus tidak membuka submenu di layar sentuh */
+  .has-dropdown:hover > .dropdown:not(.x),
+  .has-dropdown:focus-within > .dropdown:not(.x) { display: none; }
+  .has-dropdown.open:hover > .dropdown,
+  .has-dropdown.open:focus-within > .dropdown { display: block; }
+}
+
 @media (max-width: 760px) {
   .layout, .holder, .modal-box { grid-template-columns: 1fr; }
   .infobox, .holder-img { max-width: 280px; margin: auto; }
