@@ -1,18 +1,10 @@
-/* =========================================================
-   data.js – semua data wiki ada di sini.
-   Edit file ini untuk mengganti video, kartu, atau catatan.
-   ========================================================= */
-
 /* ---------- Gambar ---------- */
-// Folder gambar. Nama file default = nama kartu huruf kecil + tanda hubung
-// (contoh: "Junk Synchron" → images/junk-synchron.jpg)
 const IMG_DIR = "images/";
 
 const MAIN_CARD = { name: "Shooting Quasar Dragon", img: "shooting-quasar-dragon.jpg" };
 const HOLDER    = { name: "Yusei Fudo",             img: "yusei-fudo.jpg" };
 
 /* ---------- Video ---------- */
-// Pemilik video bisa melarang embed, jadi setiap video punya tombol "Buka di YouTube".
 const VIDEOS = [
   { id: "kj3WS1pT18k", title: "Ep. 150: Yusei Summons Shooting Quasar Dragon", by: "Anime (JP sub)" },
   { id: "DQXXhE6Z6QM", title: "Limit Over Accel Synchro! Full Summon",         by: "Knuckles1997" },
@@ -32,7 +24,6 @@ const CATEGORIES = {
   support: "Pendukung"
 };
 
-// Pembantu: ubah daftar nama menjadi daftar kartu satu kategori
 const cards = (category, names) => names.map(name => ({ name, category }));
 
 // Extra Deck Yusei di anime (Season 5). Juga dipakai di tab Pemegang.
@@ -42,8 +33,6 @@ const YUSEI_EXTRA = [
   "Red Dragon Archfiend", "Shooting Star Dragon", "Shooting Quasar Dragon", "Stardust Dragon", "Turbo Warrior"
 ];
 
-// Sumber: Yugipedia "Yusei Fudo's Decks" (Turbo Deck Season 5 / Ark Cradle).
-// Properti opsional per kartu: qty (jumlah), img (nama file), desc (deskripsi).
 const DECK = [
   ...cards("extra", YUSEI_EXTRA),
 

@@ -1,9 +1,3 @@
-/* =========================================================
-   Quasar Wiki – style.css
-   Urutan: 1 Variabel · 2 Dasar · 3 Navigasi · 4 Komponen umum
-           5 Panel/tab · 6 Deck · 7 Modal & toast · 8 Responsif
-   ========================================================= */
-
 /* ---------- 1. Variabel ---------- */
 :root {
   --bg: #050816;
@@ -100,18 +94,16 @@ footer { position: relative; z-index: 1; text-align: center; color: var(--muted)
 .menu { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; list-style: none; }
 .menu > li { position: relative; }
 
-/* Tanda panah di tombol induk */
+
 .dd-parent::after { content: " ▾"; font-size: .8em; }
 .has-dropdown.open .dd-parent::after { content: " ▴"; }
 
-/* Tombol induk menyala bila salah satu submenunya sedang dibuka */
 .has-active > .dd-parent {
   color: #06102a; font-weight: 700;
   background: linear-gradient(90deg, var(--cyan), var(--violet));
   box-shadow: 0 0 18px rgba(93, 230, 255, .5);
 }
 
-/* Kotak submenu: tersembunyi dulu */
 .dropdown {
   position: absolute; top: 100%; left: 0;
   min-width: 180px; padding: 8px; margin-top: 6px;
@@ -122,10 +114,8 @@ footer { position: relative; z-index: 1; text-align: center; color: var(--muted)
   opacity: 0; visibility: hidden; transform: translateY(8px);
   transition: .2s;
 }
-/* Jembatan tak terlihat agar hover tidak putus di celah */
 .dropdown::before { content: ""; position: absolute; top: -8px; left: 0; right: 0; height: 8px; }
 
-/* Muncul saat: kursor di atas / fokus keyboard / class .open dari JS */
 .has-dropdown:hover > .dropdown,
 .has-dropdown:focus-within > .dropdown,
 .has-dropdown.open > .dropdown { opacity: 1; visibility: visible; transform: none; }
@@ -171,7 +161,7 @@ input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(93, 230, 255,
 .chip  { padding: 5px 12px; border: 1px solid var(--cyan); border-radius: 999px; color: var(--cyan); font-size: .85rem; }
 .badge { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px; background: var(--violet); color: #fff; font-size: .75rem; }
 
-/* Placeholder gambar */
+
 .ph {
   width: 100%; height: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -193,7 +183,7 @@ img { max-width: 100%; }
 .panel[hidden] { display: none; }
 @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-/* Ringkasan */
+
 .layout { display: grid; grid-template-columns: 300px 1fr; gap: 28px; }
 .lead { font-size: 1.05rem; margin-bottom: 18px; }
 
@@ -235,7 +225,6 @@ img { max-width: 100%; }
 }
 .infopop.show { max-height: 260px; padding: 14px 16px; }
 
-/* Lore – accordion tanpa JS untuk tinggi */
 .acc-item { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .acc-head {
   display: flex; justify-content: space-between; width: 100%;
@@ -333,13 +322,13 @@ img { max-width: 100%; }
 
 /* ---------- 8. Responsif ---------- */
 @media (max-width: 860px) {
-  /* Menu jadi hamburger */
+
   .nav-toggle { display: block; }
   .nav { display: none; width: 100%; }
   .nav.open { display: block; }
   .menu { flex-direction: column; align-items: stretch; }
 
-  /* Dropdown jadi daftar di bawah tombol induk */
+ 
   .dd-parent { width: 100%; text-align: left; }
   .dropdown {
     position: static; display: none;
@@ -348,7 +337,6 @@ img { max-width: 100%; }
   }
   .dropdown::before { display: none; }
   .has-dropdown.open > .dropdown { display: block; }
-  /* hover/fokus tidak membuka submenu di layar sentuh */
   .has-dropdown:hover > .dropdown:not(.x),
   .has-dropdown:focus-within > .dropdown:not(.x) { display: none; }
   .has-dropdown.open:hover > .dropdown,
@@ -367,9 +355,7 @@ img { max-width: 100%; }
   html { scroll-behavior: auto; }
 }
 
-/* =========================================================
-   TAMBAHAN: multi-halaman + DROPDOWN MENU
-   ========================================================= */
+
 a.brand { border: 0; }
 
 .page-title {
@@ -380,7 +366,6 @@ a.brand { border: 0; }
   color: transparent;
 }
 
-/* ---------- DROPDOWN MENU ---------- */
 .nav-toggle {
   display: none;
   padding: 6px 12px;
@@ -392,18 +377,15 @@ a.brand { border: 0; }
 .menu > li { position: relative; }
 .menu a.tab { display: block; }
 
-/* Tanda panah di tombol induk (About / Gallery) */
 .dd-parent::after { content: " ▾"; font-size: .8em; }
 .has-dropdown.open .dd-parent::after { content: " ▴"; }
 
-/* Tombol induk menyala bila halaman yang dibuka ada di dalam submenunya */
 .has-active > .dd-parent {
   color: #06102a; font-weight: 700;
   background: linear-gradient(90deg, var(--cyan), var(--violet));
   box-shadow: 0 0 18px rgba(93, 230, 255, .5);
 }
 
-/* Kotak submenu: tersembunyi dulu */
 .dropdown {
   position: absolute; top: 100%; left: 0;
   min-width: 180px; padding: 8px; margin-top: 6px;
@@ -414,10 +396,8 @@ a.brand { border: 0; }
   opacity: 0; visibility: hidden; transform: translateY(8px);
   transition: .2s;
 }
-/* Jembatan tak terlihat agar hover tidak putus di celah */
 .dropdown::before { content: ""; position: absolute; top: -8px; left: 0; right: 0; height: 8px; }
 
-/* Muncul saat: kursor di atas / fokus keyboard / class .open dari JS */
 .has-dropdown:hover > .dropdown,
 .has-dropdown:focus-within > .dropdown,
 .has-dropdown.open > .dropdown { opacity: 1; visibility: visible; transform: none; }
@@ -431,7 +411,6 @@ a.brand { border: 0; }
 .dd-item:hover { color: var(--cyan); background: rgba(93, 230, 255, .08); }
 .dd-item.active { color: var(--gold); font-weight: 700; }
 
-/* ---------- Pintasan di Home ---------- */
 .explore { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
 .explore-card {
   display: block; padding: 18px;
@@ -442,7 +421,6 @@ a.brand { border: 0; }
 .explore-card p { color: var(--muted); font-size: .9rem; }
 .explore-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 8px 24px rgba(255, 216, 107, .18); color: var(--text); }
 
-/* ---------- Responsif menu ---------- */
 @media (max-width: 860px) {
   .nav-toggle { display: block; }
   .nav { display: none; width: 100%; }
@@ -450,7 +428,6 @@ a.brand { border: 0; }
   .menu { flex-direction: column; align-items: stretch; }
   .menu a.tab, .dd-parent { width: 100%; text-align: left; }
 
-  /* Submenu jadi daftar di bawah tombol induk, hanya tampil bila .open */
   .dropdown {
     position: static; display: none;
     margin: 4px 0 8px; box-shadow: none;

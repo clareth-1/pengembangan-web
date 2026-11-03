@@ -1,12 +1,4 @@
-/* =========================================================
-   uts4.js – dipakai SEMUA halaman.
-   Isi: Daftar menu (NAV) · Util · Navigasi & DROPDOWN
-        · Fitur per halaman · Bintang · Mulai
-   Setiap fitur memeriksa dulu apakah elemennya ada, jadi
-   aman dimuat di halaman yang tidak memilikinya.
-   ========================================================= */
-
-/* ---------- DAFTAR MENU (edit di sini untuk menambah halaman) ---------- */
+/* ---------- DAFTAR MENU ---------- */
 const NAV = [
   { label: "Home", page: "index" },
   { label: "About", items: [
@@ -20,13 +12,12 @@ const NAV = [
   ]}
 ];
 
-/* ---------- Util ---------- */
 const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
 const slug = text => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-/** Buat elemen dengan teks aman (tanpa innerHTML). */
+/** Buat elemen dengan teks aman. */
 function el(tag, { text = "", className = "", ...attrs } = {}, ...children) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -40,7 +31,7 @@ function externalLink(label, href) {
   return el("a", { text: label, href, target: "_blank", rel: "noopener" });
 }
 
-/** Gambar kartu; bila file tidak ada, tampilkan placeholder dengan nama file yang dicari. */
+/* Gambar kartu. */
 function createImage(name, file) {
   const path = IMG_DIR + (file || slug(name) + ".jpg");
   const img = new Image();
@@ -83,14 +74,13 @@ function initNav() {
     text: item.label
   });
 
-  // Bangun menu dari NAV
+  // NAV
   const menu = el("ul", { className: "menu" });
   NAV.forEach(item => {
-    if (!item.items) {                       // menu biasa
+    if (!item.items) {                      
       menu.append(el("li", {}, link(item, "tab")));
       return;
     }
-    // menu dengan DROPDOWN
     const parent = el("button", { className: "tab dd-parent", type: "button", "aria-expanded": "false", text: item.label });
     const sub = el("ul", { className: "dropdown" },
       ...item.items.map(sub => el("li", {}, link(sub, "dd-item"))));
@@ -104,7 +94,6 @@ function initNav() {
   const nav = el("nav", { className: "nav", "aria-label": "Navigasi utama" }, menu);
   bar.replaceChildren(brand, burger, nav);
 
-  // --- Perilaku dropdown ---
   const groups = $$(".has-dropdown", bar);
   const closeAll = except => groups.forEach(group => {
     if (group === except) return;
@@ -112,7 +101,7 @@ function initNav() {
     $(".dd-parent", group).setAttribute("aria-expanded", "false");
   });
 
-  // Klik tombol induk (About / Gallery): buka-tutup submenu
+  // buka-tutup submenu
   groups.forEach(group => {
     const parent = $(".dd-parent", group);
     parent.addEventListener("click", e => {
@@ -153,7 +142,7 @@ function initSummary() {
   }));
 }
 
-/* ---------- Lore: accordion (tinggi diatur CSS) ---------- */
+/* ---------- Lore(css)---------- */
 function initAccordion() {
   $$(".acc-head").forEach(head =>
     head.addEventListener("click", () => head.parentElement.classList.toggle("open")));
@@ -285,7 +274,7 @@ function initDeck() {
   initModal();
 }
 
-/* ---------- Modal kartu (hanya di halaman Deck) ---------- */
+/* ---------- Modal kartu---------- */
 function openModal(card) {
   const query = encodeURIComponent(card.name);
 
